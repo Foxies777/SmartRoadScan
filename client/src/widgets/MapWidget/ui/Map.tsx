@@ -39,7 +39,7 @@ const haversineDistance = (
   [lat1, lon1]: [number, number],
   [lat2, lon2]: [number, number]
 ) => {
-  const R = 6371; // Радиус Земли в км
+  const R = 6371; 
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
   const dLon = ((lon2 - lon1) * Math.PI) / 180;
   const a =
@@ -73,8 +73,6 @@ const MapWithMarkers = () => {
   const handleCloseModal = () => {
     setSelectedPit(null);
   };
-
-  console.log(mapRef);
   
   useEffect(() => {
     const timeout = setTimeout(() => {
