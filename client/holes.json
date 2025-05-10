@@ -1,0 +1,14 @@
+[
+    {
+      "id": 1,
+      "coordinates": [52.297230, 54.901171],
+      "photo": "https://example.com/photo1.jpg",
+      "description": "Большая яма на дороге"
+    },
+    {
+      "id": 2,
+      "coordinates": [52.300000, 54.900000], 
+      "photo": "https://example.com/photo2.jpg",
+      "description": "Яма с водой"
+    }
+  ]

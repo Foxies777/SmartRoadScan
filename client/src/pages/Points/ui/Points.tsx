@@ -1,12 +1,16 @@
+import { HomeButton } from "@features/HomeButton";
+import { Card } from "@widgets/CardWidget";
+
 const Points = () => {
   return (
     <div style={{
       height: '100vh',
       width: '100vw',
-      overflow: 'hidden',
+      overflowX: 'hidden',
       position: 'relative'
     }}>
       <div>привет</div>
+      <Card/>
     </div>
   )
 }

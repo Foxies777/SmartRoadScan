@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import reportRoutes from "./routes/report.routes";
+import detectionRoutes from './routes/detection.routes';
 
 dotenv.config();
 
@@ -29,7 +30,7 @@ app.use(express.json());
 
 
 app.use("/api/reports", reportRoutes);
-
+app.use('/api/detection', detectionRoutes);
 
 app.listen(PORT, () => {
   console.log(`🚀 Сервер запущен на http://localhost:${PORT}`);

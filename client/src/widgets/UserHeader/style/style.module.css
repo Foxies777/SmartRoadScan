@@ -1,20 +1,20 @@
 .userHeader {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  padding: 10px;
-  background-color: #fff;
-  border: 2px solid #000000;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  z-index: 10000000;
-}
-
-.userHeader img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-}
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    padding: 10px;
+    background-color: #fff;
+    border: 2px solid #000000;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    z-index: 10000000;
+  }
+  
+  .userHeader img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }

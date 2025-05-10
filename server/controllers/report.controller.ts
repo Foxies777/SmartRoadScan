@@ -7,7 +7,7 @@ export const getReports = async (req: Request, res: Response) => {
   try {
     console.log('Пришло запрос на получение отчетов');
     
-    const reports = await Report.find();
+    const reports = (await Report.find()).reverse();
     console.log(reports);
     
     res.json(reports);

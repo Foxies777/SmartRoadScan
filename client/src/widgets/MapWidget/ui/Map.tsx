@@ -8,6 +8,7 @@ import {
 import { Modal, Spin } from "antd";
 import { Reports } from "@entities/reports/types/model";
 import { RadiusSelector } from "./RadiusSelector";
+// import { decoder } from "@shared/lib/decoder";
 
 // Компонент модального окна для отображения информации о яме
 const MarkerModal = ({
@@ -18,7 +19,7 @@ const MarkerModal = ({
   onClose: () => void;
 }) => {
   if (!pit) return null;
-
+  
   return (
     <Modal
       title={`Яма #${pit._id}`}
@@ -30,11 +31,11 @@ const MarkerModal = ({
     >
       <img src={pit.imageUrl} alt="Яма" style={{ width: "100%" }} />
       <p>Координаты: {[pit.latitude, pit.longitude].join(", ")}</p>
+      {/* <p>Адрес: {decoder({latitude:pit.latitude, longitude: pit.longitude})}</p> */}
     </Modal>
   );
 };
 
-// Функция для расчета расстояния между двумя точками (формула haversine)
 const haversineDistance = (
   [lat1, lon1]: [number, number],
   [lat2, lon2]: [number, number]
@@ -109,7 +110,7 @@ const MapWithMarkers = () => {
   if (loading) {
     return <Spin />;
   }
-
+  
   return (
     <div
       id="map-container"
