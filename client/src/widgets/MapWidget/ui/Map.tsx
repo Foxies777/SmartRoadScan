@@ -8,7 +8,7 @@ import {
 import { Modal, Spin } from "antd";
 import { Reports } from "@entities/reports/types/model";
 import { RadiusSelector } from "./RadiusSelector";
-// import { decoder } from "@shared/lib/decoder";
+import { useUnit } from "effector-react";
 
 // Компонент модального окна для отображения информации о яме
 const MarkerModal = ({
@@ -63,7 +63,8 @@ const MapWithMarkers = () => {
     zoom: 10,
   });
   const mapRef = useRef<any>(null);
-
+  console.log(pits);
+  
   // Обработчик изменения радиуса
   const handleRadiusChange = (center: [number, number], radius: number) => {
     setFilterCenter(center);

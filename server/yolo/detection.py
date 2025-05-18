@@ -1,7 +1,7 @@
 import argparse
 import json
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 
 import cv2
 import numpy as np
@@ -89,13 +89,16 @@ while cap.isOpened():
     )
 
                     gps = find_gps_by_time(time_s)
+                    now = datetime.now(timezone.utc)
                     collection.insert_one({
-                        'timestamp': datetime.utcnow(),
                         'latitude': gps['latitude'],
                         'longitude': gps['longitude'],
                         'imageUrl': res.url,
-                        'confidence': 1.0,
-                        'type': 'offline'
+                        'area': calculate_area(cnt),
+                        'status': 'PENDING',
+                        'type': 'offline',
+                        'createdAt': now,
+                        'updatedAt': now
                     })
 
                     os.remove(fname)

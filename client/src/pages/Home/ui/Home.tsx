@@ -1,4 +1,5 @@
 
+import { FilterWidget } from "@widgets/FilterWidget";
 import { Map } from "@widgets/MapWidget"
 import { Upload } from "@widgets/Upload";
 import { UserHeader } from "@widgets/UserHeader";
@@ -16,6 +17,7 @@ const Home = () => {
         <Map />
         <UserHeader/>
         <Upload/>
+        <FilterWidget/>
       </Suspense>
     </div>
   )

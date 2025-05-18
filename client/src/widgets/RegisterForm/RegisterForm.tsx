@@ -21,7 +21,7 @@ const RegisterForm = () => {
         rules={[
           {
             required: true,
-            message: "Please input your username!",
+            message: "Напишите фамилию!",
           },
         ]}
       >
@@ -33,7 +33,7 @@ const RegisterForm = () => {
         rules={[
           {
             required: true,
-            message: "Please input your username!",
+            message: "Напишите имя!",
           },
         ]}
       >
@@ -45,7 +45,18 @@ const RegisterForm = () => {
         rules={[
           {
             required: false,
-            message: "Please input your username!",
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        label="Логин"
+        name="Login"
+        rules={[
+          {
+            required: true,
+            message: "Напишите логин пользователя!",
           },
         ]}
       >
@@ -100,15 +111,11 @@ const RegisterForm = () => {
       </Form.Item>
 
       <Form.Item>
-        <div className="buttons">
-          <Button type="primary" htmlType="submit" loading={loading}>
-            Регистрация
-          </Button>
-          <Link className="button" to={SmartRoadScanRoutes.LOGIN}>
-            Войти
-          </Link>
-        </div>
-      </Form.Item>
+      <Button block type="primary" htmlType="submit" loading={loading}>
+      Зарегестрироваться
+      </Button>
+      или <Link to={SmartRoadScanRoutes.REGISTRATION}>Войти</Link>
+    </Form.Item>
     </Form>
   );
 };

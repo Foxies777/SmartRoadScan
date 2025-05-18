@@ -1,11 +1,11 @@
 import { RegisterForm } from "widgets/RegisterForm"
-
+import styles from '../styles/style.module.css'
 const SignUp = () => {
   return (
-    <div>
-        <h1>Регистрация</h1>
-        <RegisterForm/>
-    </div>
+    <div className={styles.container}>
+    <h1>Регистрация</h1>
+    <RegisterForm />
+  </div>
   )
 }
 

@@ -36,3 +36,46 @@ export const createReport = async (req: Request, res: Response) => {
       res.status(500).json({ error: "Ошибка создания отчета" }); 
     }
   };
+
+
+export const getFilteredReports = async (req: Request, res: Response) => {
+  console.log('работает1');
+  try {
+    const { type, status, minArea, maxArea, from, to } = req.query;
+    const query: any = {};
+    console.log('работает2');
+    console.log( type, status, minArea, maxArea, from, to);
+    
+    if (type) query.type = type;
+
+    if (status) {
+      if (Array.isArray(status)) {
+        query.status = { $in: status };
+      } else {
+        query.status = status;
+      }
+    }
+
+    if (type === 'offline') {
+      query.area = {};
+      if (minArea) query.area.$gte = parseFloat(minArea as string);
+      if (maxArea) query.area.$lte = parseFloat(maxArea as string);
+      if (Object.keys(query.area).length === 0) delete query.area;
+    }
+
+    if (from || to) {
+      query.timestamp = {};
+      if (from) query.timestamp.$gte = new Date(from as string);
+      if (to) query.timestamp.$lte = new Date(to as string);
+      if (Object.keys(query.timestamp).length === 0) delete query.timestamp;
+    }
+    console.log(query);
+    
+    const reports = await Report.find(query).sort({ timestamp: -1 });
+    // console.log(reports)
+    res.status(200).json(reports);
+  } catch (error) {
+    console.error('❌ Error fetching reports:', error);
+    res.status(500).json({ error: 'Failed to fetch reports' });
+  }
+};

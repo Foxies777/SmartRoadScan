@@ -1,12 +1,14 @@
-
-import { $pits, loadPitsFx } from "@entities/reports"
-import { useUnit } from "effector-react"
-import { useEffect } from "react"
+import { useEffect } from "react";
+import { useUnit } from "effector-react";
+import { $pits, loadReportsFx, $filters } from "@features/ReportsFilter/model";
 
 export const useLoadPits = () => {
-    const [pits, loadPits] = useUnit([$pits, loadPitsFx.pending])
-    useEffect(() => {
-        loadPitsFx()
-    }, [])
-    return [pits, loadPits] as const
-}
+  const [pits, loading] = useUnit([$pits, loadReportsFx.pending]);
+  const filters = useUnit($filters);
+
+  useEffect(() => {
+    loadReportsFx(filters); // 🔥 без этого запрос не уходит
+  }, [filters]);
+
+  return [pits, loading] as const;
+};

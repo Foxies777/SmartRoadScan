@@ -6,6 +6,7 @@ const ReportSchema = new mongoose.Schema({
   longitude: { type: Number, required: true },
   confidence: {type: Number, required: true},
   status: { type: String, enum: ["PENDING", "IN_PROGRESS", "COMPLETED"], default: "PENDING" },
+  type: {type: String, enum: ["online", 'offline']}
 }, { timestamps: true });
 
 export const Report = mongoose.model("reports", ReportSchema);

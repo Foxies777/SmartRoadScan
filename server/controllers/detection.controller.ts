@@ -5,7 +5,6 @@ import unzipper from 'unzipper';
 import { Request, Response } from 'express';
 import { exec } from 'child_process';
 import { v4 as uuidv4 } from 'uuid';
-
 export const handleDetectionUpload = async (req: Request, res: Response) => {
   try {
     const zipFile = req.file;
@@ -40,3 +39,4 @@ export const handleDetectionUpload = async (req: Request, res: Response) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 };
+
