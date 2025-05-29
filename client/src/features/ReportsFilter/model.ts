@@ -1,4 +1,3 @@
-// features/ReportsFilter/model.ts
 import { fetchReports } from '@shared/api/filterReports';
 import { createEffect, createEvent, createStore, sample } from 'effector';
 import { Reports } from '@entities/reports/types/model';
@@ -18,11 +17,11 @@ export const maxAreaChanged = createEvent<number | null>();
 export const dateRangeChanged = createEvent<[string, string] | null>();
 export const resetFilters = createEvent();
 
-export const filtersUpdated = createEvent<Filters>();
+export const loadReportsFx = createEffect<Filters, Reports[]>(async (filters) => {
+  console.log('🚀 loadReportsFx RUN with filters:', filters);
+  return fetchReports(filters);
+});
 
-export const loadReportsFx = createEffect<Filters, Reports[]>(fetchReports);
-
-// filters store
 export const $filters = createStore<Filters>({
   type: null,
   status: [],
@@ -30,31 +29,19 @@ export const $filters = createStore<Filters>({
   maxArea: null,
   dateRange: null,
 })
-  .on(filtersUpdated, (_, payload) => payload)
+  .on(typeChanged, (s, type) => ({ ...s, type }))
   .on(statusChanged, (s, status) => ({ ...s, status }))
   .on(minAreaChanged, (s, minArea) => ({ ...s, minArea }))
   .on(maxAreaChanged, (s, maxArea) => ({ ...s, maxArea }))
   .on(dateRangeChanged, (s, dateRange) => ({ ...s, dateRange }))
   .reset(resetFilters);
 
-// result store
 export const $pits = createStore<Reports[]>([]).on(loadReportsFx.doneData, (_, pits) => pits);
 
-// trigger fetch on filter update
-sample({
-    source: $filters,
-    clock: filtersUpdated,
-    fn: (filters) => {
-      console.log('⚡ filtersUpdated TRIGGERED:', filters); // <= ЛОГ
-      return filters;
-    },
-    target: loadReportsFx,
-  });
-  
-
+// ⏩ Тригерим fetch при любых изменениях
 sample({
   source: $filters,
-  clock: typeChanged,
-  fn: (filters, type) => ({ ...filters, type }),
-  target: filtersUpdated,
+  clock: [typeChanged, statusChanged, minAreaChanged, maxAreaChanged, dateRangeChanged, resetFilters],
+  fn: (filters) => filters,
+  target: loadReportsFx,
 });

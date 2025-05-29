@@ -1,11 +1,12 @@
-import { createStore } from "effector";
+import { createStore, restore } from "effector";
 import { persist } from "effector-storage/local";
-import { Body } from "../../../shared/api/auth/model";
-import { setUser, tokenExpired, tokenReceived } from "./events";
+import { tokenExpired, tokenReceived } from "./events";
+import { User } from "../../../shared/api/auth/model";
+import { getUserFx } from "@features/load-user";
 
 export const $token = createStore<string>("")
-  .on(tokenExpired, (_, token) => token)
-  .reset(tokenReceived);
+  .on(tokenReceived, (_, token) => token)
+  .reset(tokenExpired);
 
 export const $isAuth = $token.map((token) => !!token);
 
@@ -16,6 +17,4 @@ persist({
   deserialize: (value) => value,
 });
 
-export const $user = createStore<Body | null>(null)
-  .on(setUser, (_, user) => user)
-  .reset(tokenReceived);
+export const $user = restore<User | null>(getUserFx.doneData, null);

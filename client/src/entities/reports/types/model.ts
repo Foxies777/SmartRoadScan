@@ -3,5 +3,7 @@ export type Reports ={
     imageUrl: string,
     latitude: number,
     longitude: number,
+    area?: number,
+    status: string,
     createdAt: Date,
 }

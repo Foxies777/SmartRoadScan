@@ -15,21 +15,18 @@ const LoginForm = () => {
     labelAlign="left"
     onFinish={login}
   >
-    <Form.Item
-      label="Почта"
-      name="email"
-      labelCol={{ style: { width: '75px' } }}
-      rules={[
-        {
-          required: true,
-          type: "email",
-          pattern: new RegExp("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
-          message: "Заполните правильно почту!",
-        },
-      ]}
-    >
-      <Input prefix={<UserOutlined />} placeholder="Логин" />
-    </Form.Item>
+   <Form.Item
+        label="Логин"
+        name="login"
+        rules={[
+          {
+            required: true,
+            message: "Напишите логин пользователя!",
+          },
+        ]}
+      >
+        <Input placeholder="Логин"/>
+      </Form.Item>
     <Form.Item
       label="Пароль"
       name="password"

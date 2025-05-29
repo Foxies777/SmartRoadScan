@@ -5,7 +5,11 @@ const ReportSchema = new mongoose.Schema({
   latitude: { type: Number, required: true },
   longitude: { type: Number, required: true },
   confidence: {type: Number, required: true},
-  status: { type: String, enum: ["PENDING", "IN_PROGRESS", "COMPLETED"], default: "PENDING" },
+  status: {
+    type: String,
+    enum: ["PENDING", "IN_PROGRESS", "COMPLETED", "REJECTED"],
+    default: "PENDING",
+  },
   type: {type: String, enum: ["online", 'offline']}
 }, { timestamps: true });
 

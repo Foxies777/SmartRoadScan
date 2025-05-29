@@ -3,6 +3,13 @@ import dayjs from 'dayjs';
 import { useUnit } from 'effector-react';
 import { $filters, typeChanged, statusChanged, minAreaChanged, maxAreaChanged, dateRangeChanged, resetFilters } from '../model';
 
+const STATUSES = [
+  { label: 'Ожидание', value: 'PENDING' },
+  { label: 'В работе', value: 'IN_PROGRESS' },
+  { label: 'Выполнено', value: 'COMPLETED' },
+  { label: 'Отклонено', value: 'REJECTED' },
+];
+
 interface Props {
   open: boolean;
   onClose: () => void;
@@ -14,20 +21,22 @@ const FilterModal = ({ open, onClose }: Props) => {
 
   const handleApply = () => {
     const values = form.getFieldsValue();
-    console.log('🧪 APPLY FILTERS:', values);
-    
-    typeChanged(values.type || null);  // ← должен вызвать sample → filtersUpdated
+
+    typeChanged(values.type || null);
     statusChanged(values.status || []);
     minAreaChanged(values.minArea || null);
     maxAreaChanged(values.maxArea || null);
-    dateRangeChanged(values.dateRange
-      ? [values.dateRange[0].format("YYYY-MM-DD"), values.dateRange[1].format("YYYY-MM-DD")]
-      : null
+    dateRangeChanged(
+      values.dateRange
+        ? [
+            values.dateRange[0].format('YYYY-MM-DD'),
+            values.dateRange[1].format('YYYY-MM-DD'),
+          ]
+        : null
     );
-  
+
     onClose();
   };
-  
 
   const handleReset = () => {
     resetFilters();
@@ -35,13 +44,19 @@ const FilterModal = ({ open, onClose }: Props) => {
   };
 
   return (
-    <Modal open={open} title="Фильтры" onCancel={onClose} onOk={handleApply} footer={null}>
+    <Modal open={open} title="Фильтры" onCancel={onClose} footer={null}>
       <Form layout="vertical" form={form} initialValues={filters}>
         <Form.Item name="type" label="Тип">
-          <Select options={[{ label: 'online', value: 'online' }, { label: 'offline', value: 'offline' }]} allowClear />
+          <Select
+            options={[
+              { label: 'online', value: 'online' },
+              { label: 'offline', value: 'offline' },
+            ]}
+            allowClear
+          />
         </Form.Item>
         <Form.Item name="status" label="Статусы">
-          <Select mode="multiple" options={[{ label: 'new', value: 'new' }, { label: 'reviewed', value: 'reviewed' }]} allowClear />
+          <Select mode="multiple" options={STATUSES} allowClear />
         </Form.Item>
         <Form.Item name="minArea" label="Площадь от (см²)">
           <InputNumber min={0} style={{ width: '100%' }} />
@@ -54,7 +69,9 @@ const FilterModal = ({ open, onClose }: Props) => {
         </Form.Item>
         <div className="flex gap-2 justify-end">
           <Button onClick={handleReset}>Сбросить</Button>
-          <Button type="primary" onClick={handleApply}>Применить</Button>
+          <Button type="primary" onClick={handleApply}>
+            Применить
+          </Button>
         </div>
       </Form>
     </Modal>

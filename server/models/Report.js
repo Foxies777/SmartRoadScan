@@ -8,7 +8,11 @@ var ReportSchema = new mongoose_1.default.Schema({
     longitude: { type: Number, required: true },
     area: {type: Number},
     confidence: {type: Number},
-    status: { type: String, enum: ["PENDING", "IN_PROGRESS", "COMPLETED"], default: "PENDING" },
+    status: {
+        type: String,
+        enum: ["PENDING", "IN_PROGRESS", "COMPLETED", "REJECTED"],
+        default: "PENDING",
+      },
     type: {type: String, enum: ["online", 'offline']}
 }, { timestamps: true });
 exports.Report = mongoose_1.default.model("reports", ReportSchema);

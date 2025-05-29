@@ -72,10 +72,40 @@ export const getFilteredReports = async (req: Request, res: Response) => {
     console.log(query);
     
     const reports = await Report.find(query).sort({ timestamp: -1 });
-    // console.log(reports)
+    console.log(reports)
     res.status(200).json(reports);
   } catch (error) {
     console.error('❌ Error fetching reports:', error);
     res.status(500).json({ error: 'Failed to fetch reports' });
+  }
+};
+
+
+export const updateReportStatus = async (req: Request, res: Response) => {
+  try {
+    const { reportId } = req.params;
+    const { status } = req.body;
+    
+    const allowedStatuses = ["PENDING", "IN_PROGRESS", "COMPLETED", "REJECTED"];
+    if (!allowedStatuses.includes(status)) {
+      res.status(400).json({ error: "Неверный статус" });
+      return; // просто завершаем выполнение, но ничего не возвращаем
+    }
+
+    const report = await Report.findByIdAndUpdate(
+      reportId,
+      { status },
+      { new: true }
+    );
+
+    if (!report) {
+      res.status(404).json({ error: "Отчёт не найден" });
+      return;
+    }
+
+    res.json({ message: "Статус обновлён", report });
+  } catch (error) {
+    console.error("Ошибка при обновлении статуса:", error);
+    res.status(500).json({ error: "Ошибка сервера" });
   }
 };

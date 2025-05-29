@@ -2,6 +2,7 @@ import { useLoadPits } from "@features/load-pits";
 import { Modal, Spin } from "antd";
 import { useState } from 'react';
 import styles from '../styles/styles.module.css'
+import { StatusDropdown } from "@features/updateReportStatus/ui/StatusDropdown";
 interface ModalProps {
     img: string | null,
     onClose: () => void
@@ -52,6 +53,9 @@ const Card = () => {
                         />
                         <h3>#{pits._id}</h3>
                         <p>{pits.latitude}, {pits.longitude}</p>
+                        <p>{pits.area}</p>
+                        <p>{pits.status}</p>
+                        <StatusDropdown  reportId={pits._id} currentStatus={pits.status}/>
                     </div>
                 )
             }

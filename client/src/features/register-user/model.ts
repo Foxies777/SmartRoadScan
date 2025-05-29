@@ -8,13 +8,11 @@ import { showErrorMassage } from "../../shared/notification";
 export const registerFx = createEffect<Body, Response>(signUp);
 
 sample({
-    clock: registerFx.doneData, 
-    source: $token,
-    fn(_, clk) {
-        return clk.token
-    },
-    target: tokenReceived
-})
+    clock: registerFx.doneData,
+    fn: ({ token }) => token,
+    target: tokenReceived,
+  });
+  
 sample({
     clock: registerFx.failData,
     target: showErrorMassage

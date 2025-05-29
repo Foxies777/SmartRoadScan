@@ -52,7 +52,7 @@ const RegisterForm = () => {
       </Form.Item>
       <Form.Item
         label="Логин"
-        name="Login"
+        name="login"
         rules={[
           {
             required: true,
@@ -114,7 +114,7 @@ const RegisterForm = () => {
       <Button block type="primary" htmlType="submit" loading={loading}>
       Зарегестрироваться
       </Button>
-      или <Link to={SmartRoadScanRoutes.REGISTRATION}>Войти</Link>
+      или <Link to={SmartRoadScanRoutes.LOGIN}>Войти</Link>
     </Form.Item>
     </Form>
   );

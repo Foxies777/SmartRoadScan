@@ -5,7 +5,20 @@ export type Body = {
   login: string;
   password: string;
 };
+export type User = {
+  id: string;
+  login: string;
+  surname: string;
+  name: string;
+  patronymic: string;
+  phone: string;
+  role: string;
+};
+
 export type Response = {
   token: string;
-  user: { _id: string; login: string };
+  user: { 
+    id: string;
+    role: string 
+  };
 };

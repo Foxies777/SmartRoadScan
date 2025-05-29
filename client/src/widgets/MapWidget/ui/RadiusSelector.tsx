@@ -26,11 +26,9 @@ export const RadiusSelector = ({ onChange, zoom }: RadiusSelectorProps) => {
   const handleDragEnd = (event: any) => {
     setCenter([event[1], event[0]]);
   };
-  console.log(zoom);
   
   // Вычисляем размер маркера на основе зума
-  const markerSize = Math.max(8, 24 - zoom * 2); // Пример формулы
-  console.log(markerSize);
+  
   
   return (
     <>
@@ -57,7 +55,7 @@ export const RadiusSelector = ({ onChange, zoom }: RadiusSelectorProps) => {
             <div
               style={{
                 background: "white",
-                padding: `${markerSize}px`, // Динамический размер
+                padding: `${8}px`, // Динамический размер
                 borderRadius: "50%",
                 transition: "padding 0.2s", // Плавное изменение размера
               }}

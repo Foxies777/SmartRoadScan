@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 export const handleDetectionUpload = async (req: Request, res: Response) => {
   try {
     const zipFile = req.file;
+    console.log('Received file:', zipFile);
     if (!zipFile) return res.status(400).json({ error: 'No file uploaded' });
 
     const tempId = uuidv4();
@@ -39,4 +40,3 @@ export const handleDetectionUpload = async (req: Request, res: Response) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 };
-

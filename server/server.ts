@@ -4,7 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import reportRoutes from "./routes/report.routes";
 import detectionRoutes from './routes/detection.routes';
-
+import authRoutes from './routes/user.routes';
 dotenv.config();
 
 const app = express();
@@ -31,7 +31,7 @@ app.use(express.json());
 
 app.use("/api/reports", reportRoutes);
 app.use('/api/detection', detectionRoutes);
-
+app.use("/api/auth", authRoutes);
 app.listen(PORT, () => {
   console.log(`🚀 Сервер запущен на http://localhost:${PORT}`);
 });

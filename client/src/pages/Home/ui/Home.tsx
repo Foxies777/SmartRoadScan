@@ -1,11 +1,17 @@
 
+import { $isAuth, $user } from "@entities/user/model";
 import { FilterWidget } from "@widgets/FilterWidget";
 import { Map } from "@widgets/MapWidget"
 import { Upload } from "@widgets/Upload";
 import { UserHeader } from "@widgets/UserHeader";
+import { useUnit } from "effector-react";
 import { Suspense } from "react";
 
 const Home = () => {
+  const isAuth = useUnit($isAuth)
+  const user = useUnit($user)
+  console.log(user);
+  
   return (
     <div style={{
       position: "relative",
@@ -16,7 +22,7 @@ const Home = () => {
       <Suspense fallback={<div>Loading...</div>}>
         <Map />
         <UserHeader/>
-        <Upload/>
+        {isAuth? <Upload/> : null}
         <FilterWidget/>
       </Suspense>
     </div>
